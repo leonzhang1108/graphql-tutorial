@@ -4,7 +4,7 @@ const Koa = require('koa')
 const schema = require('./data/schema.js')
 const KoaRouter = require('koa-router')
 const KoaBody = require('koa-bodyparser')
-const { graphqlKoa, graphiqlKoa } = require('graphql-server-koa')
+const { graphqlKoa, graphiqlKoa } = require('apollo-server-koa')
 
 const port = 8000
 
@@ -18,9 +18,7 @@ router.get('/api/test', function (ctx, next) {
   ctx.body = { data: "this is api" }
 })
 
-router.post('/graphql', KoaBody(), graphqlKoa({ schema }))
-
-// router.post('/graphql', graphqlKoa(ctx => ({schema, context: ctx.request})))
+router.post('/graphql', graphqlKoa({ schema }))
 router.get('/graphql', graphqlKoa({ schema }))
 
 router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' }))

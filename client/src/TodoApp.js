@@ -22,7 +22,7 @@ class TodoApp extends React.Component {
 }
 
 export default graphql(gql`
-query RootQuery {
+query {
   count
 }
 `)(TodoApp)
