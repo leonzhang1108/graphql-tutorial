@@ -17,13 +17,17 @@ class TodoApp extends React.Component {
   }
   
   onDelete = i => {
-    const { authors } = this.props.data
-    const { id } = authors[i]
+    
+    const { list, deleteAuthor } = this.props
+    const { id } = list[i]
+    console.log(id)
 
-
+    deleteAuthor(id)
     // this.props.mutate({
     //   variables: { id }
     // })
+
+    
 
   }
   render() {
@@ -58,8 +62,11 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAuthors(list){
-      dispatch(AuthorActions.addList(list))
+    getAuthors(){
+      dispatch(AuthorActions.getAuthors())
+    },
+    deleteAuthor(id){
+      dispatch(AuthorActions.deleteAuthor(id))
     }
   }
 }

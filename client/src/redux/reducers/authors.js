@@ -7,7 +7,7 @@ const initialState = {
   list: []
 }
 
-const get_author = (state, list) => {
+const get_authors = (state, list) => {
   return Object.assign({}, state, { 
     list
   })
@@ -15,8 +15,12 @@ const get_author = (state, list) => {
 
 
 const authors = createReducer(initialState)({
-  [ActionTypes.GET_AUTHOR]: (state, action) => {
-    return get_author(state, action.list)
+  [ActionTypes.GET_AUTHORS]: (state, action) => {
+    return get_authors(state, action.list)
+  },
+  [ActionTypes.DELETE_AUTHOR]: (state, action) => {
+    console.log(action)
+    return state
   }
 })
 

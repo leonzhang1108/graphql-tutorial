@@ -2,8 +2,6 @@ import ActionTypes from '../constants/ActionTypes'
 
 import Api from '../api'
 
-console.log(Api)
-
 const errorsAction = (errors) => {
   console.log(errors)
   return {
@@ -14,11 +12,18 @@ const errorsAction = (errors) => {
 
 
 const AuthorActions = {
-  async addList(){
+  async getAuthors(){
     const { data } = await Api.getAuthors()
     return {
-      type: ActionTypes.GET_AUTHOR,
+      type: ActionTypes.GET_AUTHORS,
       list: data.authors
+    }
+  },
+  async deleteAuthor(id){
+    const { data } = await Api.deleteAuthor(id)
+    console.log(data)
+    return {
+      type: ActionTypes.DELETE_AUTHOR
     }
   }
 }

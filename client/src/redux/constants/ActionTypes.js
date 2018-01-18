@@ -1,3 +1,4 @@
 module.exports = {
-  GET_AUTHOR: 'GET_AUTHOR'
+  GET_AUTHORS: 'GET_AUTHORS',
+  DELETE_AUTHOR: 'DELETE_AUTHOR'
 }

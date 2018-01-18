@@ -17,11 +17,23 @@ const getAuthors = () => {
           name, id
         }
       }
-    `,
+    `
   })
 }
 
+const deleteAuthor = id => {
+  return client.mutate({
+    mutation: gql`
+      mutation {
+        deleteAuthor(id: ${id}) {
+          name, id
+        }
+      }
+    `
+  })
+}
 
 export default {
-  getAuthors
+  getAuthors,
+  deleteAuthor
 }

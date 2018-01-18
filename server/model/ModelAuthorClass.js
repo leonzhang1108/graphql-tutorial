@@ -38,10 +38,10 @@ module.exports = class ModelAuthorClass {
   }
 
   deleteAuthor(query) {
-    return connection.execute(`DELETE from Post ` + sqlUtil.whereQuery(query))
+    return connection.execute(`DELETE from Author ` + sqlUtil.whereQuery(query))
   }
 
   retrievePostList(id) {
-    return connection.execute(`SELECT * FROM Post where author_id=?`, [id])
+    return connection.execute(`SELECT * FROM Author where author_id=?`, [id])
   }
 }

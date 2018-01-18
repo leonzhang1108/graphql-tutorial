@@ -7,7 +7,7 @@ import reducers from '../reducers'
 
 const middlewares = [
   asyncAwait,
-  thunk,
+  thunk
 ]
 
 const store = applyMiddleware(...middlewares)(createStore)(combineReducers(reducers))
