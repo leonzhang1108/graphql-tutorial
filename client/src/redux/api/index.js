@@ -9,15 +9,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-const getAuthors = client.query({
-  query: gql`
-    {
-      authors {
-        name, id
+const getAuthors = () => {
+  return client.query({
+    query: gql`
+      {
+        authors {
+          name, id
+        }
       }
-    }
-  `,
-})
+    `,
+  })
+}
 
 
 export default {

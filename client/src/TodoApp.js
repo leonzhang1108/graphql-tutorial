@@ -13,7 +13,6 @@ import { CircularProgress } from 'material-ui/Progress'
 class TodoApp extends React.Component {
 
   componentDidMount = () => {
-    console.log(this.props)
     this.props.getAuthors()
   }
   
@@ -28,25 +27,24 @@ class TodoApp extends React.Component {
 
   }
   render() {
-    // const { loading } = this.props.data
-    // let component = <CircularProgress/>
-    // if(!loading) {
 
-    //   const { authors } = this.props.data
+    const { list } = this.props
+    let component = <CircularProgress/>
+    if(list.length) {
 
-    //   const listItem = authors.map((author, i) => (
-    //     <ListItem button key={i}>
-    //       <ListItemText primary={author.name} />
-    //       <ListItemSecondaryAction>
-    //         <IconButton aria-label="Delete">
-    //           <DeleteIcon onClick={() =>this.onDelete(i)} />
-    //         </IconButton>
-    //       </ListItemSecondaryAction>
-    //     </ListItem>
-    //   ))
-    //   component = <List>{ listItem }</List>
-    // }
-    return <CircularProgress/>
+      const listItem = list.map((author, i) => (
+        <ListItem button key={i}>
+          <ListItemText primary={author.name} />
+          <ListItemSecondaryAction>
+            <IconButton aria-label="Delete">
+              <DeleteIcon onClick={() =>this.onDelete(i)} />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      ))
+      component = <List>{ listItem }</List>
+    }
+    return component
   }
 }
 

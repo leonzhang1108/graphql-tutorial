@@ -1,8 +1,8 @@
 import ActionTypes from '../constants/ActionTypes'
 
-import getAuthors from '../api'
+import Api from '../api'
 
-console.log(getAuthors)
+console.log(Api)
 
 const errorsAction = (errors) => {
   console.log(errors)
@@ -14,11 +14,11 @@ const errorsAction = (errors) => {
 
 
 const AuthorActions = {
-  async addList(list){
-    // const list = await getAuthors()
+  async addList(){
+    const { data } = await Api.getAuthors()
     return {
       type: ActionTypes.GET_AUTHOR,
-      list
+      list: data.authors
     }
   }
 }
