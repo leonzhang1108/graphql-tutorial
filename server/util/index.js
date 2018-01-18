@@ -2,8 +2,7 @@ import Winston from 'winston'
 
 const logger = new(Winston.Logger)({
   transports: [
-    new(Winston.transports.Console)(),
-    // new (winston.transports.File)({ filename: 'somefile.log' })
+    new(Winston.transports.Console)()
   ]
 })
 

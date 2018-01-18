@@ -12,45 +12,9 @@ import {
   ModelAuthor
 } from '../model'
 
-
-const Author = new GraphQLObjectType({
-  name: 'Author',
-  description: 'This represents a Author',
-  fields: () => {
-    return {
-      id: {
-        type: GraphQLInt,
-        resolve(author, root, context) {
-          return author.id
-        }
-      },
-      name: {
-        type: GraphQLString,
-        resolve(author) {
-          return author.name
-        }
-      },
-      gender: {
-        type: GraphQLInt,
-        resolve(author) {
-          return author.gender
-        }
-      },
-      intro: {
-        type: GraphQLString,
-        resolve(author) {
-          return author.intro
-        }
-      },
-      email: {
-        type: GraphQLString,
-        resolve(author) {
-          return author.email
-        }
-      }
-    }
-  }
-})
+import  {
+  Author
+} from './type'
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -63,15 +27,15 @@ const Query = new GraphQLObjectType({
           id: {
             type: GraphQLInt
           },
-          email: {
+          name: {
             type: GraphQLString
           }
         },
-        resolve(root, args, context) {
-          // root是rootValue
-          // context是context
-          return ModelAuthor.retrieveAuthor(args)
-        }
+        resolve: (root, args, context) => ModelAuthor.retrieveAuthor(args)
+      },
+      hello: {
+        type: GraphQLString,
+        resolve: () => 'world'
       }
     }
   }
@@ -133,35 +97,15 @@ const Mutation = new GraphQLObjectType({
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
-        resolve(source, args) {
-          "use strict"
-          return ModelAuthor.deleteAuthor(args)
-        }
+        resolve: (source, args) => ModelAuthor.deleteAuthor(args)
       }
     }
   }
 })
-
-
-const RootQuery = new GraphQLObjectType({
-  name: 'RootQuery',
-  description: 'root',
-  fields:{
-    count: {
-      type: GraphQLString,
-      //Add description
-      description: 'The count!',
-      resolve: function() {
-        return "123"
-      }
-    }
-  }
-})
-
 
 const schema = new GraphQLSchema({
-  query: RootQuery,
+  query: Query,
   mutation: Mutation
 })
 
-export default schema
+module.exports = schema

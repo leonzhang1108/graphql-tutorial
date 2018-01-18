@@ -1,23 +1,19 @@
-import React, { Component } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react'
+import './styles/App.css'
+import Title from './components/Title'
 import TodoApp from './TodoApp'
+import Grid from 'material-ui/Grid'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <TodoApp/>
-      </div>
-    )
-  }
-}
+const App = () => (
+  <Grid 
+    container
+    alignItems={`center`}
+    direction={`row`}
+    justify={`center`}
+  >
+    <Title/>
+    <TodoApp/>
+  </Grid>
+)
 
 export default App

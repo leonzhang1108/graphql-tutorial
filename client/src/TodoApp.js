@@ -1,28 +1,65 @@
 import React from 'react'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-
+import List, { 
+  ListItem, 
+  ListItemText,
+  ListItemSecondaryAction
+} from 'material-ui/List'
+import IconButton from 'material-ui/IconButton'
+import DeleteIcon from 'material-ui-icons/Delete'
+import { CircularProgress } from 'material-ui/Progress'
 
 class TodoApp extends React.Component {
+  
+  onDelete = i => {
+    const { authors } = this.props.data
+    const { id } = authors[i]
+    console.log(`id: ${id}`)
 
-  componentDidMount = () => {
-    console.log(fetch)
-    fetch("/api/test", { 
-      method: "GET"
-    }).then(response => console.log(response),  console.log)
+    this.props.mutate({
+      variables: { id }
+    })
+
   }
   render() {
-    // const { data: { todos, refetch } } = this.props
-    return (
-      <div>
-        lalala
-      </div>
-    )
+    const { loading } = this.props.data
+    let component = <CircularProgress/>
+    if(!loading) {
+
+      const { authors } = this.props.data
+
+      const listItem = authors.map((author, i) => (
+        <ListItem button key={i}>
+          <ListItemText primary={author.name} />
+          <ListItemSecondaryAction>
+            <IconButton aria-label="Delete">
+              <DeleteIcon onClick={() =>this.onDelete(i)} />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      ))
+      component = <List>{ listItem }</List>
+    }
+    return component
   }
 }
 
-export default graphql(gql`
+const authorQuery = gql`
 query {
-  count
+  authors {
+    name, id
+  }
 }
-`)(TodoApp)
+`
+
+const deleteAuthor = gql`
+mutation {
+  deleteAuthor(id: $id)
+}
+`
+
+export default compose(
+  graphql(authorQuery),
+  graphql(deleteAuthor)
+)(TodoApp)

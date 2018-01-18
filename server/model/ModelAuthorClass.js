@@ -6,7 +6,6 @@ import {
   sqlUtil
 } from '../util'
 
-// Author宣告
 module.exports = class ModelAuthorClass {
   constructor() {
     logger.info("create author table")
@@ -22,7 +21,6 @@ module.exports = class ModelAuthorClass {
   }
 
   createAuthor(name, gender, age, email, intro) {
-    // 預設回傳 {insertId} 但是GraphQL只認id，所以要轉換在回傳
     return connection.execute(`INSERT INTO Author (name, gender, age, email, intro, create_at) 
           values (?,?,?,?,?,?)`, [name, gender, age, email, intro || '', new Date()]).then(result => {
       return {
