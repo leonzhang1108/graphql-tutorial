@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
-import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { Provider } from 'react-redux'
+import store from './redux/store'
+
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 
 // 主题
@@ -16,16 +15,13 @@ const theme = createMuiTheme({
   }
 })
 
-const client = new ApolloClient({
-  link: new HttpLink(),
-  cache: new InMemoryCache()
-})
+
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <ApolloProvider client={client}>
-      <App/>
-    </ApolloProvider>
+      <Provider store={store}>
+        <App/>
+      </Provider>
   </MuiThemeProvider>,
   document.getElementById('root')
 )
