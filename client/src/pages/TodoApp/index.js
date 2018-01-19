@@ -15,15 +15,18 @@ import DeleteIcon from 'material-ui-icons/Delete'
 import { CircularProgress } from 'material-ui/Progress'
 import './index.css'
 
-
-
-
 class TodoApp extends React.Component {
 
   constructor(props){
     super(props)
     this.state = {
-      dialogOpen: false
+      dialogOpen: false,
+      currItem: {
+        id: '',
+        name: '',
+        email: '',
+        intro: ''
+      }
     }
   }
 
@@ -37,9 +40,26 @@ class TodoApp extends React.Component {
     })
   }
 
-  onOpen = () => {
+  onSave = () => {
+    const { currItem } = this.state
+    const { updateAuthor } = this.props
+    
+    console.log(currItem)
+    updateAuthor(currItem)
     this.setState({
-      dialogOpen: true
+      dialogOpen: false
+    })
+  }
+
+  onOpen = author => {
+    this.setState({
+      dialogOpen: true,
+      currItem: {
+        id: author.id,
+        name: author.name,
+        email: author.email,
+        intro: author.intro
+      }
     })
   }
   
@@ -48,15 +68,26 @@ class TodoApp extends React.Component {
     const { id } = list[i]
     deleteAuthor(id)
   }
+
+  formChange = e => {
+    const { currItem } = this.state
+    this.setState({
+      currItem: {
+        ...currItem,
+        [e.target.id]: e.target.value
+      }
+    })
+  }
+
   render() {
 
     const { list } = this.props
-    const { dialogOpen } = this.state
+    const { dialogOpen, currItem } = this.state
     let component = <CircularProgress/>
     if(list.length) {
 
       const listItem = list.map((author, i) => (
-        <ListItem button key={i} onClick={this.onOpen}>
+        <ListItem button key={i} onClick={() => this.onOpen(author)}>
           <ListItemText primary={author.name} />
           <ListItemSecondaryAction>
             <IconButton aria-label="Delete">
@@ -72,14 +103,31 @@ class TodoApp extends React.Component {
         {component}
         <FullScreenDialog
           open={dialogOpen}
+          title={currItem.name}
           onClose={this.onClose}
+          onSave={this.onSave}
         >
-
           <TextField
-            id="with-placeholder"
-            label="With placeholder"
-            placeholder="Placeholder"
+            id="name"
+            label="Name"
+            placeholder="not empty"
             margin="normal"
+            defaultValue={currItem.name}
+            onChange={this.formChange}
+          />
+          <TextField
+            id="email"
+            label="E-mail"
+            margin="normal"
+            defaultValue={currItem.email}
+            onChange={this.formChange}
+          />
+          <TextField
+            id="intro"
+            label="Intro"
+            margin="normal"
+            defaultValue={currItem.intro}
+            onChange={this.formChange}
           />
 
         </FullScreenDialog>
@@ -104,6 +152,9 @@ const mapDispatchToProps = dispatch => {
     },
     deleteAuthor(id){
       dispatch(AuthorActions.deleteAuthor(id))
+    },
+    updateAuthor(author) {
+      dispatch(AuthorActions.updateAuthor(author))
     }
   }
 }

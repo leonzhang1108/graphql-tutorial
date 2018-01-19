@@ -9,11 +9,11 @@ const logger = new(Winston.Logger)({
 const sqlUtil = {
   updateQuery: query => {
     "use strict"
-    let updateString = ''
+    let updateList = []
     for (let prop in query) {
-      updateString = updateString + "," + prop + "=" + query[prop]
+      updateList.push(`${prop}="${query[prop]}"`)
     }
-    return updateString
+    return updateList.join(',')
   },
   whereQuery: query => {
     let whereString = ''

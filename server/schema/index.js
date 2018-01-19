@@ -76,8 +76,8 @@ const Mutation = new GraphQLObjectType({
           id: {
             type: new GraphQLNonNull(GraphQLInt)
           },
-          gender: {
-            type: GraphQLInt
+          name: {
+            type: GraphQLString
           },
           intro: {
             type: GraphQLString

@@ -12,9 +12,9 @@ const client = new ApolloClient({
 const getAuthors = () => {
   return client.query({
     query: gql`
-      {
+      query {
         authors {
-          name, id
+          name, id, email, intro
         }
       }
     `
@@ -33,7 +33,26 @@ const deleteAuthor = id => {
   })
 }
 
+const updateAuthor = author => {
+
+  return client.mutate({
+    mutation: gql`
+      mutation {
+        updateAuthor(
+          id: ${author.id},
+          name: "${author.name}",
+          intro: "${author.intro}",
+          email: "${author.email}"
+        ) {
+          name, id, email, intro
+        }
+      }
+    `
+  })
+}
+
 export default {
   getAuthors,
-  deleteAuthor
+  deleteAuthor,
+  updateAuthor
 }

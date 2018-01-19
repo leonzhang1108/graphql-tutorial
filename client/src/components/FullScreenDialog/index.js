@@ -28,14 +28,16 @@ const FullScreenDialog = props => (
           <CloseIcon />
         </IconButton>
         <Typography type="title" color="inherit" className="dialog-title">
-          Title
+          {props.title || 'title'}
         </Typography>
-        <Button color="contrast" onClick={props.onClose}>
-          save
+        <Button color="contrast" onClick={props.onSave}>
+          {props.save || 'save'}
         </Button>
       </Toolbar>
     </AppBar>
-    {props.children}
+    <div className="dialog-content-wrapper">
+      {props.children}
+    </div>
   </Dialog>
 )
 
