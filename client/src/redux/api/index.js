@@ -44,7 +44,7 @@ const updateAuthor = author => {
           intro: "${author.intro}",
           email: "${author.email}"
         ) {
-          name, id, email, intro
+          ok
         }
       }
     `
