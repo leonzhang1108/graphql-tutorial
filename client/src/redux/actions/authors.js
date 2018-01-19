@@ -42,6 +42,17 @@ const AuthorActions = {
       type: ActionTypes.UPDATE_AUTHOR,
       author
     }
+  },
+  createAuthor: async author => {
+
+    const { data, errors } = await Api.createAuthor(author)
+
+    if(errors) return errorsAction(errors)
+
+    return {
+      type: ActionTypes.CREATE_AUTHOR,
+      data
+    }
   }
 }
 

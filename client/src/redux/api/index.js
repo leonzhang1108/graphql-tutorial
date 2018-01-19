@@ -34,7 +34,6 @@ const deleteAuthor = id => {
 }
 
 const updateAuthor = author => {
-
   return client.mutate({
     mutation: gql`
       mutation {
@@ -51,8 +50,25 @@ const updateAuthor = author => {
   })
 }
 
+const createAuthor = author => {
+  return client.mutate({
+    mutation: gql`
+      mutation {
+        createAuthor(
+          name: "${author.name}",
+          intro: "${author.intro}",
+          email: "${author.email}"
+        ) {
+          name, id, email, intro
+        }
+      }
+    `
+  })
+}
+
 export default {
   getAuthors,
   deleteAuthor,
-  updateAuthor
+  updateAuthor,
+  createAuthor
 }

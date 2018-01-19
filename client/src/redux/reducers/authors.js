@@ -40,13 +40,22 @@ const updateAuthor = (state, author) => {
   return state.update('list', list => list.set(index, updatedItem))
 }
 
+const createAuthor = (state, data) => {
+  
+  const newAuthor = data.createAuthor[0]
+
+  return state.update('list', list => list.push(Map(newAuthor)))
+}
+
 const authors = createReducer(initialState)({
 
   [ActionTypes.GET_AUTHORS]: (state, action) => getAuthors(state, action.list),
 
   [ActionTypes.DELETE_AUTHOR]: (state, action) => deleteAuthor(state, action.id),
 
-  [ActionTypes.UPDATE_AUTHOR]: (state, action) => updateAuthor(state, action.author)
+  [ActionTypes.UPDATE_AUTHOR]: (state, action) => updateAuthor(state, action.author),
+
+  [ActionTypes.CREATE_AUTHOR]: (state, action) => createAuthor(state, action.data)
 
 })
 

@@ -23,6 +23,7 @@ class TodoApp extends React.Component {
     super(props)
     this.state = {
       dialogOpen: false,
+      isNew: false,
       currItem: {
         id: '',
         name: '',
@@ -43,10 +44,10 @@ class TodoApp extends React.Component {
   }
 
   onSave = () => {
-    const { currItem } = this.state
-    const { updateAuthor } = this.props
+    const { currItem, isNew } = this.state
+    const { updateAuthor, createAuthor } = this.props
     
-    updateAuthor(currItem)
+    isNew ? createAuthor(currItem) : updateAuthor(currItem)
     
     this.setState({
       dialogOpen: false
@@ -56,11 +57,25 @@ class TodoApp extends React.Component {
   onOpen = author => {
     this.setState({
       dialogOpen: true,
+      isNew: false,
       currItem: {
         id: author.id,
         name: author.name,
         email: author.email,
         intro: author.intro
+      }
+    })
+  }
+
+  onNewOpen = () => {
+    this.setState({
+      dialogOpen: true,
+      isNew: true,
+      currItem: {
+        id: '',
+        name: '',
+        email: '',
+        intro: ''
       }
     })
   }
@@ -84,7 +99,7 @@ class TodoApp extends React.Component {
   render() {
 
     const { list } = this.props
-    const { dialogOpen, currItem } = this.state
+    const { dialogOpen, currItem, isNew } = this.state
     let component = <CircularProgress/>
     if(list.length) {
 
@@ -106,7 +121,7 @@ class TodoApp extends React.Component {
         
         <FullScreenDialog
           open={dialogOpen}
-          title={currItem.name}
+          title={isNew ? 'new' : currItem.name }
           onClose={this.onClose}
           onSave={this.onSave}
         >
@@ -121,6 +136,7 @@ class TodoApp extends React.Component {
           <TextField
             id="email"
             label="E-mail"
+            placeholder="not empty"
             margin="normal"
             defaultValue={currItem.email}
             onChange={this.formChange}
@@ -128,13 +144,13 @@ class TodoApp extends React.Component {
           <TextField
             id="intro"
             label="Intro"
+            placeholder="not empty"
             margin="normal"
             defaultValue={currItem.intro}
             onChange={this.formChange}
           />
-
         </FullScreenDialog>
-        <Button className="floating-add-btn" fab color="primary" aria-label="add" >
+        <Button className="floating-add-btn" fab color="primary" aria-label="add" onClick={this.onNewOpen}>
           <AddIcon />
         </Button>
       </div>
@@ -161,6 +177,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateAuthor(author) {
       dispatch(AuthorActions.updateAuthor(author))
+    },
+    createAuthor(author) {
+      dispatch(AuthorActions.createAuthor(author))
     }
   }
 }

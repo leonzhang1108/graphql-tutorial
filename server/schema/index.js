@@ -13,30 +13,22 @@ import {
 } from '../model'
 
 import  {
-  Author,
-  CommonResult
+  TypeAuthor,
+  TypeCommonResult
 } from './type'
+
+import {
+  AuthorArgs
+} from './args'
 
 const Query = new GraphQLObjectType({
   name: 'Query',
-  description: 'Root query object',
+  description: 'Query',
   fields: () => {
     return {
       authors: {
-        type: new GraphQLList(Author),
-        args: {
-          id: {
-            type: GraphQLInt
-          },
-          name: {
-            type: GraphQLString
-          }
-        },
+        type: new GraphQLList(TypeAuthor),
         resolve: (root, args, context) => ModelAuthor.retrieveAuthor(args)
-      },
-      hello: {
-        type: GraphQLString,
-        resolve: () => 'world'
       }
     }
   }
@@ -44,56 +36,30 @@ const Query = new GraphQLObjectType({
 
 const Mutation = new GraphQLObjectType({
   name: 'Mutations',
-  description: 'Functions to set stuff',
+  description: 'Mutations',
   fields: () => {
     return {
       createAuthor: {
-        type: Author,
-        args: {
-          name: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          gender: {
-            type: new GraphQLNonNull(GraphQLInt)
-          },
-          age: {
-            type: new GraphQLNonNull(GraphQLInt)
-          },
-          email: {
-            type: new GraphQLNonNull(GraphQLString)
-          },
-          intro: {
-            type: GraphQLString
-          },
-        },
-        resolve(source, args) {
-          return ModelAuthor.createAuthor(args.name, args.gender, args.age, args.email, args.intro)
-        }
+        type: new GraphQLList(TypeAuthor),
+        args: AuthorArgs,
+        resolve: (source, args) => ModelAuthor.createAuthor(args)
       },
       updateAuthor: {
-        type: CommonResult,
+        type: TypeCommonResult,
         args: {
+          ...AuthorArgs,
           id: {
             type: new GraphQLNonNull(GraphQLInt)
-          },
-          name: {
-            type: GraphQLString
-          },
-          intro: {
-            type: GraphQLString
-          },
-          email: {
-            type: GraphQLString
           },
         },
         resolve: (source, args) => ModelAuthor.updateAuthor(args.id, args)
       },
       deleteAuthor: {
-        type: CommonResult,
+        type: TypeCommonResult,
         args: {
           id: {
             type: new GraphQLNonNull(GraphQLInt)
-          }
+          },
         },
         resolve: (source, args) => ModelAuthor.deleteAuthor(args)
       }

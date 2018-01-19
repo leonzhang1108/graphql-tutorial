@@ -1,7 +1,7 @@
-import Author from './TypeAuthor'
-import CommonResult from './TypeCommonResult'
+import TypeAuthor from './TypeAuthor'
+import TypeCommonResult from './TypeCommonResult'
 
 module.exports = {
-  Author,
-  CommonResult
+  TypeAuthor,
+  TypeCommonResult
 }
