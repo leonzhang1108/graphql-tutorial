@@ -17,18 +17,9 @@ class TodoApp extends React.Component {
   }
   
   onDelete = i => {
-    
     const { list, deleteAuthor } = this.props
     const { id } = list[i]
-    console.log(id)
-
     deleteAuthor(id)
-    // this.props.mutate({
-    //   variables: { id }
-    // })
-
-    
-
   }
   render() {
 
@@ -55,8 +46,9 @@ class TodoApp extends React.Component {
 
 const mapStateToProps = store => {
   const { authors } = store
+  const res = authors.toJS()
   return {
-    list: authors.list
+    list: res.list
   }
 }
 

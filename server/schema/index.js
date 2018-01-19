@@ -13,7 +13,8 @@ import {
 } from '../model'
 
 import  {
-  Author
+  Author,
+  CommonResult
 } from './type'
 
 const Query = new GraphQLObjectType({
@@ -91,7 +92,7 @@ const Mutation = new GraphQLObjectType({
         }
       },
       deleteAuthor: {
-        type: Author,
+        type: CommonResult,
         args: {
           id: {
             type: new GraphQLNonNull(GraphQLInt)

@@ -26,7 +26,7 @@ const deleteAuthor = id => {
     mutation: gql`
       mutation {
         deleteAuthor(id: ${id}) {
-          name, id
+          ok
         }
       }
     `

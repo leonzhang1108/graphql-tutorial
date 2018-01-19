@@ -13,17 +13,23 @@ const errorsAction = (errors) => {
 
 const AuthorActions = {
   async getAuthors(){
-    const { data } = await Api.getAuthors()
+    const { data, errors } = await Api.getAuthors()
+
+    if(errors)  return errorsAction(errors)
+
     return {
       type: ActionTypes.GET_AUTHORS,
       list: data.authors
     }
   },
-  async deleteAuthor(id){
-    const { data } = await Api.deleteAuthor(id)
-    console.log(data)
+  deleteAuthor: async id => {
+    const { errors } = await Api.deleteAuthor(id)
+    
+    if(errors)  return errorsAction(errors)
+
     return {
-      type: ActionTypes.DELETE_AUTHOR
+      type: ActionTypes.DELETE_AUTHOR,
+      id
     }
   }
 }
