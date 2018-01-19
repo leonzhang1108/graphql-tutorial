@@ -1,5 +1,9 @@
 .todo-wrapper {
   width: 100%;
-  display: flex;
-  justify-content: center;
+}
+
+.floating-add-btn {
+  position: absolute!important;
+  bottom: 3rem;
+  right: 3rem;
 }

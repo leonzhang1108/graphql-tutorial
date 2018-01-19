@@ -5,13 +5,15 @@ import List, {
   ListItemSecondaryAction
 } from 'material-ui/List'
 import {
-  TextField
+  TextField,
+  Button
 } from 'material-ui'
 import FullScreenDialog from 'components/FullScreenDialog'
 import { connect } from 'react-redux'
 import AuthorActions from '../../redux/actions/authors'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui-icons/Delete'
+import AddIcon from 'material-ui-icons/Add'
 import { CircularProgress } from 'material-ui/Progress'
 import './index.css'
 
@@ -44,8 +46,8 @@ class TodoApp extends React.Component {
     const { currItem } = this.state
     const { updateAuthor } = this.props
     
-    console.log(currItem)
     updateAuthor(currItem)
+    
     this.setState({
       dialogOpen: false
     })
@@ -101,6 +103,7 @@ class TodoApp extends React.Component {
     return (
       <div className="todo-wrapper">
         {component}
+        
         <FullScreenDialog
           open={dialogOpen}
           title={currItem.name}
@@ -131,6 +134,9 @@ class TodoApp extends React.Component {
           />
 
         </FullScreenDialog>
+        <Button className="floating-add-btn" fab color="primary" aria-label="add" >
+          <AddIcon />
+        </Button>
       </div>
     )
   }

@@ -71,7 +71,7 @@ const Mutation = new GraphQLObjectType({
         }
       },
       updateAuthor: {
-        type: Author,
+        type: CommonResult,
         args: {
           id: {
             type: new GraphQLNonNull(GraphQLInt)
@@ -86,10 +86,7 @@ const Mutation = new GraphQLObjectType({
             type: GraphQLString
           },
         },
-        resolve(source, args) {
-          "use strict"
-          return ModelAuthor.updateAuthor(args.id, args)
-        }
+        resolve: (source, args) => ModelAuthor.updateAuthor(args.id, args)
       },
       deleteAuthor: {
         type: CommonResult,
