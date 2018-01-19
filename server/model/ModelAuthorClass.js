@@ -31,8 +31,8 @@ module.exports = class ModelAuthorClass {
     return connection.execute(`SELECT * FROM Author ` + sqlUtil.whereQuery(query))
   }
 
-  updateAuthor(id, query) {
-    connection.execute(`UPDATE Author SET ` + sqlUtil.updateQuery(query) + ' where id=?', [id])
+  updateAuthor(query) {
+    connection.execute(`UPDATE Author SET ` + sqlUtil.updateQuery(query) + ' where id=?', [query.id])
     return { ok: true }
   }
 

@@ -50,16 +50,16 @@ const Mutation = new GraphQLObjectType({
           ...AuthorArgs,
           id: {
             type: new GraphQLNonNull(GraphQLInt)
-          },
+          }
         },
-        resolve: (source, args) => ModelAuthor.updateAuthor(args.id, args)
+        resolve: (source, args) => ModelAuthor.updateAuthor(args)
       },
       deleteAuthor: {
         type: TypeCommonResult,
         args: {
           id: {
             type: new GraphQLNonNull(GraphQLInt)
-          },
+          }
         },
         resolve: (source, args) => ModelAuthor.deleteAuthor(args)
       }
