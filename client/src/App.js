@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles/App.css'
 import Title from './components/Title'
-import TodoApp from './TodoApp'
+import TodoApp from './pages/TodoApp'
 import Grid from 'material-ui/Grid'
 
 const App = () => (

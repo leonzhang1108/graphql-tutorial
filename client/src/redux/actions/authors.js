@@ -12,7 +12,7 @@ const errorsAction = (errors) => {
 
 
 const AuthorActions = {
-  async getAuthors(){
+  getAuthors: async () =>{
     const { data, errors } = await Api.getAuthors()
 
     if(errors)  return errorsAction(errors)

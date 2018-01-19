@@ -13,19 +13,20 @@ const getAuthors = (state, list) => state.set('list', fromJS(list))
 const deleteAuthor = (state, id) => {
   
   const newState = state.update('list',
-    list => list.filterNot(item => item.get('id') === id)
+    list => list.filterNot(
+      item => item.get('id') === id
+    )
   )
   
   return newState
-
 }
 
 
 const authors = createReducer(initialState)({
+
   [ActionTypes.GET_AUTHORS]: (state, action) => getAuthors(state, action.list),
 
   [ActionTypes.DELETE_AUTHOR]: (state, action) => deleteAuthor(state, action.id)
-
 
 })
 

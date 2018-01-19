@@ -1,0 +1,6 @@
+.full-screen-dialog-wrapper {
+  position: relative!important;
+}
+.dialog-title {
+  flex: 1;
+}
