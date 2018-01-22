@@ -54,7 +54,7 @@ class TodoApp extends React.Component {
     })
   }
 
-  onOpen = author => {
+  onOpen = author => () => {
     this.setState({
       dialogOpen: true,
       isNew: false,
@@ -80,18 +80,14 @@ class TodoApp extends React.Component {
     })
   }
   
-  onDelete = i => {
-    const { list, deleteAuthor } = this.props
-    const { id } = list[i]
-    deleteAuthor(id)
-  }
+  onDelete = id => () => this.props.deleteAuthor(id)
 
-  formChange = e => {
+  formChange = name => e => {
     const { currItem } = this.state
     this.setState({
       currItem: {
         ...currItem,
-        [e.target.id]: e.target.value
+        [name]: e.target.value
       }
     })
   }
@@ -102,13 +98,12 @@ class TodoApp extends React.Component {
     const { dialogOpen, currItem, isNew } = this.state
     let component = <CircularProgress/>
     if(list.length) {
-
       const listItem = list.map((author, i) => (
-        <ListItem button key={i} onClick={() => this.onOpen(author)}>
+        <ListItem button key={i} onClick={this.onOpen(author)}>
           <ListItemText primary={author.name} />
           <ListItemSecondaryAction>
             <IconButton aria-label="Delete">
-              <DeleteIcon onClick={() =>this.onDelete(i)} />
+              <DeleteIcon onClick={this.onDelete(author.id)} />
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
