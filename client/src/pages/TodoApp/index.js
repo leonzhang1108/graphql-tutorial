@@ -126,7 +126,7 @@ class TodoApp extends React.Component {
             placeholder="not empty"
             margin="normal"
             defaultValue={currItem.name}
-            onChange={this.formChange}
+            onChange={this.formChange('name')}
           />
           <TextField
             id="email"
@@ -134,7 +134,7 @@ class TodoApp extends React.Component {
             placeholder="not empty"
             margin="normal"
             defaultValue={currItem.email}
-            onChange={this.formChange}
+            onChange={this.formChange('email')}
           />
           <TextField
             id="intro"
@@ -142,7 +142,7 @@ class TodoApp extends React.Component {
             placeholder="not empty"
             margin="normal"
             defaultValue={currItem.intro}
-            onChange={this.formChange}
+            onChange={this.formChange('intro')}
           />
         </FullScreenDialog>
         <Button className="floating-add-btn" fab color="primary" aria-label="add" onClick={this.onNewOpen}>
