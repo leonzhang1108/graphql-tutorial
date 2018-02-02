@@ -24,14 +24,16 @@ class TodoApp extends React.Component {
     this.state = {
       dialogOpen: false,
       isNew: false,
-      currItem: {
-        id: '',
-        name: '',
-        email: '',
-        intro: ''
-      }
+      currItem: this.initCurrItem()
     }
   }
+
+  initCurrItem = () => ({
+    id: '',
+    name: '',
+    email: '',
+    intro: ''
+  })
 
   componentDidMount = () => {
     this.props.getAuthors()
@@ -71,12 +73,7 @@ class TodoApp extends React.Component {
     this.setState({
       dialogOpen: true,
       isNew: true,
-      currItem: {
-        id: '',
-        name: '',
-        email: '',
-        intro: ''
-      }
+      currItem: this.initCurrItem()
     })
   }
   

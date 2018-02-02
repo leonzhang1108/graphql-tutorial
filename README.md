@@ -1,5 +1,14 @@
 # graphql-tutorial
 gra gra gra
 
-
- > http://localhost:8000/graphiql?query={count}
+### client
+* ```cd client```
+* ```npm run dev```
+ 
+### server
+* ```cd server```
+* ```npm run dev```
+ 
+### electron
+* ```cd client```
+* ```electron .```
