@@ -11,4 +11,5 @@ gra gra gra
  
 ### electron
 * ```cd client```
+* ```npm run dev```
 * ```electron .```
